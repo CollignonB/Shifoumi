@@ -95,7 +95,7 @@ function whoWin(userChoice, computerChoice){
     if (round.win === 3 || round.lose === 3){
         return replay(prompt("Voulez-vous refaire une partie en premier à 3 victoires ? (y/n)"));
     }
-    alert("Prêts pour la prochaine manche ?")
+    alert("Score : " + userName + " : " + round.win + " victoire(s)\nScore : CPU : " + round.lose+ " victoire(s)\nPrêts pour la prochaine manche ?")
     
     ShifumiBO();
 }
@@ -112,6 +112,8 @@ function ShifumiBO (){
 // Start another game if the use want to 
 function replay(answer){
     if (answer === "y"){
+        round.win = 0;
+        round.lose = 0;
         var userChoice = checkChoice(prompt("Faites votre choix : (Pierre, Feuille ou Ciseau)").toLowerCase());
 
         var computerChoice = cpuMakeChoice();

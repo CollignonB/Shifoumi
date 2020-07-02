@@ -20,3 +20,7 @@ Ensuite faire un choix (pierre, feuille ou ciseau).
 L'ordinatauer fait son choix après.
 Puis les choix sont affichés, et le vainqueur (ou pas) déterminé.
 
+## Gestionnaire de version 
+J'ai fait deux fichier .js différents :
+- version 1 : juste une partie sans verification sur les entrées utilisateurs 
+- version 2 : gestion d'un système de BO5, rejouabilité verification sur les saisies utilisateurs mise en forme du code en utilisant des fonctions 
