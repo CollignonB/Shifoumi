@@ -28,7 +28,7 @@ function checkName(userName){
 // Check if the user enter a valide answer (case sensitive)
 function checkChoice(userChoice){
     while (userChoice){
-        console.log(userChoice);
+        //console.log(userChoice);
         if (userChoice === "pierre"){
             return userChoice;
         }else if (userChoice === "feuille"){
@@ -40,6 +40,7 @@ function checkChoice(userChoice){
         }
     }
 }
+
 
 // Generate a number and assigned it a value for the game
 function cpuMakeChoice(){
@@ -114,12 +115,11 @@ function replay(answer){
     if (answer === "y"){
         round.win = 0;
         round.lose = 0;
-        var userChoice = checkChoice(prompt("Faites votre choix : (Pierre, Feuille ou Ciseau)").toLowerCase());
 
-        var computerChoice = cpuMakeChoice();
-
-        var replay = whoWin(userChoice,computerChoice);
+        ShifumiBO();
     }else if (answer === "n"){
         alert ("Merci d'avoir jouer :)");
+    }else{
+        replay(prompt("entrez une valeur correct pour rejouer : y/n "))
     }
 }
