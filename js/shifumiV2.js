@@ -11,11 +11,17 @@ var possibleChoices = ["pierre", "feuille","ciseau"];
 // 0 -> lose
 // 1 -> win
 // 2 -> draw
-var scoreTable = [
-    [2, 0, 1],
-    [1, 2, 0],
-    [0, 1, 2]
-];
+// var scoreTable = [
+//     [2, 0, 1],
+//     [1, 2, 0],
+//     [0, 1, 2]
+// ];
+
+var victoryTable = {
+    pierre : "ciseau",
+    feuille : "pierre",
+    ciseau : "feuille"
+}
 
 // Check if the user enter a valide name 
 function checkName(userName){
@@ -28,7 +34,6 @@ function checkName(userName){
 // Check if the user enter a valide answer (case sensitive)
 function checkChoice(userChoice){
      while (userChoice){
-        console.log(userChoice);
         for(var i = 0; i < possibleChoices.length; i++){
             if(userChoice === possibleChoices[i]){
                 return userChoice;
@@ -39,29 +44,34 @@ function checkChoice(userChoice){
 }
 
 // Check and Display both choice and determine who win  
-function whoWinRound(userChoice, final, randomNum){
+function whoWinRound(userChoice, randomNum){
     // Display choice of both players
     alert ("Votre choix est : " + userChoice + "\nLe choix de l'ordinateur est : " + possibleChoices[randomNum]);
 
-    if (final === 0){
-        alert("Vous avez perdu.");
-        round.lose ++;
-    }else if (final === 1){
-        alert("Vous avez gagné !")
-        round.win ++;
-    }else if (final === 2){
-        alert("Match nul ...")
+    if(userChoice === possibleChoices[randomNum]){
+        alert("Match nul ...");
+    }else{        
+        for (var key in victoryTable) {
+            if (key === userChoice && victoryTable[key] === possibleChoices[randomNum]){
+                alert("Vous avez gagné !")
+                round.win ++;
+                whoWinGame();
+            }else{
+                alert("Vous avez perdu.");
+                round.lose ++;
+                whoWinGame();
+            }
+        }
     }
-    console.log("score : " + round.win + " / " + round.lose);
-
     whoWinGame();
+    console.log("score : " + round.win + " / " + round.lose);
 }
 
 function whoWinGame(){
+    alert("Score : " + userName + " : " + round.win + " victoire(s)\nScore : CPU : " + round.lose+ " victoire(s)\nPrêts pour la prochaine manche ?")
     if (round.win === 3 || round.lose === 3){
         return replay(prompt("Voulez-vous refaire une partie en premier à 3 victoires ? (y/n)"));
     }
-    alert("Score : " + userName + " : " + round.win + " victoire(s)\nScore : CPU : " + round.lose+ " victoire(s)\nPrêts pour la prochaine manche ?")
     
     main();
 }
@@ -70,9 +80,11 @@ function main (){
     var userChoice = checkChoice(prompt("Faites votre choix : (Pierre, Feuille ou Ciseau)").toLowerCase());
     var userValue = possibleChoices.indexOf(userChoice);
     var randomNum = Math.floor(Math.random() * Math.floor(3));
-    var final = scoreTable[userValue][randomNum];
-    console.log("valeur user : " + userChoice + "\nvaleur CPU : " + randomNum + "\nvaleur table de victorie : " + scoreTable[userValue][randomNum]);
-    whoWinRound(userChoice,final,randomNum);
+    //var final = scoreTable[userValue][randomNum];
+     //+ "\nvaleur table de victorie : " + scoreTable[userValue][randomNum]
+    console.log("valeur user : " + userChoice + "\nvaleur CPU : " + randomNum );
+    whoWinRound(userChoice,randomNum);
+    console.log("score : " + round.win + "/" + round.lose  );
 }
 // Start another game if the use want to 
 function replay(answer){
